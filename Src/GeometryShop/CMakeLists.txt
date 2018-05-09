@@ -17,7 +17,7 @@ list ( APPEND ALLHEADERS AMReX_BaseEBFaceFABI.H	      AMReX_EBData.H			 AMReX_Fa
 list ( APPEND ALLHEADERS AMReX_BaseIF.H		      AMReX_EBDataFactory.H		 AMReX_FaceIterator.H		      AMReX_IrregFABFactory.H  AMReX_NormalDerivativeNew.H   AMReX_TransformIF.H         )
 list ( APPEND ALLHEADERS AMReX_BaseIFFAB.H	      AMReX_EBDataVarMacros.H		 AMReX_Factorial.H		      AMReX_IrregNode.H        AMReX_Notation.H		     AMReX_UnionIF.H             )
 list ( APPEND ALLHEADERS AMReX_BaseIFFABI.H	      AMReX_EBDebugDump.H		 AMReX_FixedRefinement.H	      AMReX_KDStruct.H	       AMReX_PXStuff.H		     AMReX_VoFIterator.H         )
-list ( APPEND ALLHEADERS AMReX_BaseIFFactory.H	      AMReX_EBDebugOut.H		 AMReX_FixedRefinementImplem.H	      AMReX_KDTree.H	       AMReX_PlaneIF.H		     AMReX_VolIndex.H            )
+list ( APPEND ALLHEADERS AMReX_EBDebugOut.H		 AMReX_FixedRefinementImplem.H	      AMReX_KDTree.H	       AMReX_PlaneIF.H		     AMReX_VolIndex.H            )
 list ( APPEND ALLHEADERS AMReX_BaseIVFAB.H	      AMReX_EBFaceFAB.H			 AMReX_FlatPlateGeom.H		      AMReX_LSProblem.H        AMReX_PolyGeom.H		     AMReX_WrappedGShop.H        )
 list ( APPEND ALLHEADERS AMReX_BaseIVFABI.H	      AMReX_EBFluxFAB.H			 AMReX_GenericArithmetic.H	      AMReX_LSProblemImplem.H  AMReX_PolynomialIF.H	     AMReX_ZCylinder.H           )
 list ( APPEND ALLHEADERS AMReX_BaseIVFactory.H	      AMReX_EBFluxFactory.H		 AMReX_GenericArithmeticI.H	      AMReX_LSquares.H	       AMReX_RedistStencil.H                                     )
