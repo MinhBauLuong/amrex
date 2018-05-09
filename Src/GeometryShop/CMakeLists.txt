@@ -11,7 +11,7 @@ list ( APPEND ALLHEADERS AMReX_AnisotropicDxPlaneIF.H AMReX_CutCellMomentsImplem
 list ( APPEND ALLHEADERS AMReX_AnisotropicIF.H	      AMReX_DivNormalRefinement.H	 AMReX_IndexTM.H	       AMReX_MonomialPowers.H	              )
 list ( APPEND ALLHEADERS AMReX_BaseEBCellFAB.H	      AMReX_DivNormalRefinementImplem.H  AMReX_EB_TYPEDEFS.H		      AMReX_IndexTMI.H	       AMReX_MultiIndex.H	     AMReX_SmoothAbsoluteValue.H )
 list ( APPEND ALLHEADERS AMReX_BaseEBCellFABI.H	      AMReX_EBArith.H			 AMReX_EllipsoidIF.H		      AMReX_IndexedMoments.H   AMReX_MultiIndexImplem.H      AMReX_SmoothIntersection.H  )
-list ( APPEND ALLHEADERS AMReX_BaseEBCellFactory.H    AMReX_EBCellFAB.H			 AMReX_ExtrudeIF.H		      AMReX_IntVectSet.H       AMReX_NoRefinement.H	     AMReX_SmoothUnion.H         )
+list ( APPEND ALLHEADERS AMReX_EBCellFAB.H			 AMReX_ExtrudeIF.H		      AMReX_IntVectSet.H       AMReX_NoRefinement.H	     AMReX_SmoothUnion.H         )
 list ( APPEND ALLHEADERS AMReX_BaseEBFaceFAB.H	      AMReX_EBCellFactory.H		 AMReX_FabArrayIO.H		      AMReX_IntersectionIF.H   AMReX_NoRefinementImplem.H    AMReX_SphereIF.H            )
 list ( APPEND ALLHEADERS AMReX_BaseEBFaceFABI.H	      AMReX_EBData.H			 AMReX_FaceIndex.H		      AMReX_IrregFAB.H	       AMReX_NormalDerivative.H      AMReX_Stencils.H            )
 list ( APPEND ALLHEADERS AMReX_BaseIF.H		      AMReX_EBDataFactory.H		 AMReX_FaceIterator.H		      AMReX_IrregFABFactory.H  AMReX_NormalDerivativeNew.H   AMReX_TransformIF.H         )
