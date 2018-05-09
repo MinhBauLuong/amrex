@@ -19,9 +19,9 @@ list ( APPEND ALLHEADERS AMReX_BaseIFFAB.H	      AMReX_EBDataVarMacros.H		 AMReX
 list ( APPEND ALLHEADERS AMReX_BaseIFFABI.H	      AMReX_EBDebugDump.H		 AMReX_KDStruct.H	       AMReX_PXStuff.H		     AMReX_VoFIterator.H         )
 list ( APPEND ALLHEADERS AMReX_EBDebugOut.H	      AMReX_KDTree.H	       AMReX_PlaneIF.H		     AMReX_VolIndex.H            )
 list ( APPEND ALLHEADERS AMReX_BaseIVFAB.H	      AMReX_EBFaceFAB.H			 AMReX_FlatPlateGeom.H		      AMReX_PolyGeom.H		        )
-list ( APPEND ALLHEADERS AMReX_BaseIVFABI.H	      AMReX_EBFluxFAB.H			 AMReX_PolynomialIF.H	     AMReX_ZCylinder.H           )
-list ( APPEND ALLHEADERS AMReX_BaseIVFactory.H	      AMReX_EBFluxFactory.H		 AMReX_LSquares.H	       AMReX_RedistStencil.H                                     )
-list ( APPEND ALLHEADERS AMReX_EBGraph.H			 AMReX_GeomIntersectUtils.H	      AMReX_LatheIF.H )
+list ( APPEND ALLHEADERS AMReX_BaseIVFABI.H	      AMReX_PolynomialIF.H	     AMReX_ZCylinder.H           )
+list ( APPEND ALLHEADERS AMReX_BaseIVFactory.H	      AMReX_LSquares.H	       AMReX_RedistStencil.H                                     )
+list ( APPEND ALLHEADERS AMReX_EBGraph.H	      AMReX_GeomIntersectUtils.H	      AMReX_LatheIF.H )
 list ( APPEND ALLHEADERS AMReX_CellEdge.H	      AMReX_EBISBox.H			 AMReX_GeometryService.H	      AMReX_LoHiSide.H	       AMReX_STLAsciiReader.H                                    )
 list ( APPEND ALLHEADERS AMReX_ComplementIF.H	      AMReX_EBISLayout.H		 AMReX_GeometryShop.H		      AMReX_STLBox.H                                            )
 list ( APPEND ALLHEADERS AMReX_EBISLevel.H			 AMReX_GraphNode.H	 AMReX_STLExplorer.H                                       )    
@@ -29,7 +29,7 @@ list ( APPEND ALLHEADERS AMReX_CoveredSlabs.H )
 
 
 
-list ( APPEND CXXSRC AMReX_AllRegularService.cpp     AMReX_EBFluxFactory.cpp		    AMReX_ExtrudeIF.cpp		  AMReX_IntersectionIF.cpp    AMReX_PXStuff.cpp	)
+list ( APPEND CXXSRC AMReX_AllRegularService.cpp     AMReX_ExtrudeIF.cpp		  AMReX_IntersectionIF.cpp    AMReX_PXStuff.cpp	)
 list ( APPEND CXXSRC AMReX_BaseIFFAB.cpp	     AMReX_EBGraph.cpp			    AMReX_FabArrayIO.cpp	  AMReX_IrregFAB.cpp	      AMReX_PlaneIF.cpp	)
 list ( APPEND CXXSRC AMReX_CellEdge.cpp	             AMReX_EBISBox.cpp			    AMReX_FaceIndex.cpp		  AMReX_IrregFABFactory.cpp   AMReX_PolyGeom.cpp )
 list ( APPEND CXXSRC AMReX_ComplementIF.cpp	     AMReX_EBISLayout.cpp		    AMReX_FaceIterator.cpp	  AMReX_IrregNode.cpp	      AMReX_PolynomialIF.cpp	AMReX_SphereIF.cpp           )
@@ -40,7 +40,7 @@ list ( APPEND CXXSRC AMReX_EBCellFAB.cpp	     AMReX_EBLevelRedist.cpp		    AMReX
 list ( APPEND CXXSRC AMReX_EBData.cpp	             AMReX_EBLoHiCenter.cpp		    AMReX_GraphNode.cpp		  AMReX_LoHiSide.cpp	      AMReX_STLIF.cpp		AMReX_VolIndex.cpp                   )
 list ( APPEND CXXSRC AMReX_EBDebugOut.cpp	     AMReX_STLMesh.cpp		  )
 list ( APPEND CXXSRC AMReX_EBFaceFAB.cpp	     AMReX_Ellipsoid.cpp		    AMReX_Moments.cpp	      AMReX_STLUtil.cpp		AMReX_ZCylinder.cpp          )
-list ( APPEND CXXSRC AMReX_EBFluxFAB.cpp	     AMReX_EllipsoidIF.cpp		    AMReX_IntVectSet.cpp )    
+list ( APPEND CXXSRC AMReX_EllipsoidIF.cpp		    AMReX_IntVectSet.cpp )    
 list ( APPEND CXXSRC AMReX_CoveredSlabs.cpp )
 
 # 
