@@ -37,9 +37,6 @@ namespace amrex
 
     virtual BaseIF* newImplicitFunction() const;
 
-    ///return the partial derivative at the point
-    virtual Real derivative(const  IntVect& a_deriv,
-                            const RealVect& a_point) const;
   protected:
     RealVect m_radii;     // radii
     RealVect m_center;    // center

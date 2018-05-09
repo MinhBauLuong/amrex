@@ -38,10 +38,6 @@ namespace amrex
     ///
     virtual BaseIF* newImplicitFunction() const;
 
-    ///
-    virtual Real derivative(const  IntVect& a_deriv,
-                            const RealVect& a_point) const;
-    
   protected:
 
     

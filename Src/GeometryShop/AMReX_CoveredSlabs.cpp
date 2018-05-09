@@ -67,7 +67,6 @@ namespace amrex
                    const Box                & a_domain) const
   {
     IrregNode newNode;
-    newNode.m_hasMoments = false;
     newNode.m_cell = a_iv;
     newNode.m_cellIndex = 0;
     newNode.m_volFrac = 1.0;

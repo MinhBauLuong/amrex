@@ -179,8 +179,6 @@ namespace amrex
     ///
     bool m_build_eb_surface;
 
-    bool m_hasMoments;
-
     //only generated if needed (ergo mutable).
     mutable bool m_hasMultiValuedCells;
 

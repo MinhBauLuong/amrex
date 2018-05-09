@@ -28,16 +28,6 @@ namespace amrex
     return retval;
   }
 
-   Real 
-   ComplementIF::
-   derivative(const  IntVect& a_deriv,
-              const RealVect& a_point) const
-   {
-     Real retval = m_impFunc->derivative(a_deriv, a_point);
-     retval = -retval;
-     return retval;
-   }
-
   BaseIF* ComplementIF::newImplicitFunction() const
   {
     ComplementIF* complementPtr = new ComplementIF(*m_impFunc);

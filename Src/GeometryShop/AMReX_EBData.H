@@ -8,112 +8,11 @@
 #include "AMReX_BaseIVFAB.H"
 #include "AMReX_BaseIFFAB.H"
 #include "AMReX_FArrayBox.H"
-#include "AMReX_EB_TYPEDEFS.H"
-#include "AMReX_IndexedMoments.H"
 
 namespace amrex
 {
   class EBIndexSpace;
 
-  class EBIndexSpace;
-  class BaseIF;
-
-  template <class T>
-  int linearSize(const T& inputT);
-
-  template <class T>
-  void linearIn(T& a_outputT, const void* const inBuf);
-
-  template <class T>
-  void linearOut(void* const a_outBuf, const T& inputT);
-
-  ///
-  /**
-     Class that encapsulates the geometric information at an irregular face
-  */
-  class BoundaryData
-  {
-  public:
-    ///
-    BoundaryData()
-      {
-      }
-
-    /// the moment at  the irregular face associated with the  monomial with the input exponents 
-    /**
-       Given VoF variables x, y, z,   p = mono(0), q = mono(1), r = mono(2),
-       returns integral_over_irregular_area((x^p y^q z^r) dA)
-    **/
-    IndMomSpaceDim m_EBMoments;
-
-
-    /// the derivatives of the normal
-    /**
-       (d_p)(n_d)
-    **/
-    IndMomSpaceDim m_normalPartialDeriv[SpaceDim];
-
-    /// the derivatives of the normal
-    /**
-       (d_p)(n_d)
-    **/
-    IndMomSpaceDim m_EBNormalMoments[SpaceDim];
-
-    BoundaryData& operator=(const BoundaryData& a_in)
-      {
-        if(&a_in != this)
-        {
-          m_EBMoments = a_in.m_EBMoments;
-          for(int idir = 0; idir < SpaceDim; idir++)
-          {
-            m_normalPartialDeriv[idir] = a_in.m_normalPartialDeriv[idir];
-            m_EBNormalMoments   [idir] = a_in.m_EBNormalMoments   [idir];
-          }
-        }
-        return *this;
-      }
-    static size_t linearSize();
-  
-    void linearIn( const char* const a_inbuf);
-    void linearOut(const char* const a_inbuf) const;
-  };
-
-///
-/**
- */
-  class VolData
-  {
-  public:
-    IndMomSpaceDim                    m_volumeMoments;
-    BoundaryData                      m_averageFace;
-  };
-
-/// VolData specializations of linear* functions used by LevelData
-//[NOTE: see also SPMD.H. <dbs>]
-  template < >
-  int linearSize(const VolData& vdata);
-  template < >
-  void linearIn(VolData& a_outputT, const void* const inBuf);
-  template < >
-  void linearOut(void* const a_outBuf, const VolData& a_inputT);
-
-
-
-///
-/**
- */
-  class FaceData
-  {
-  public:
-    IndMomSDMinOne  m_faceMoments;
-  };
-
-  template < >
-  int linearSize(const FaceData& vdata);
-  template < >
-  void linearIn(FaceData& a_outputT, const void* const inBuf);
-  template < >
-  void linearOut(void* const a_outBuf, const FaceData& a_inputT);
 ///
 /**
    This class contains all the geometric information
@@ -148,9 +47,7 @@ namespace amrex
     //this is the define to use when you are just going to copy the data into it.  region should include ghost cells
     //this just defines the data holders
     void define(const EBGraph&           a_graph,
-                const Box&               a_region,
-                const Real&              a_dx,
-                bool a_hasMoments);
+                const Box&               a_region);
 
     ///
     /**
@@ -186,9 +83,7 @@ namespace amrex
     define(const EBGraph&           a_graph,
            const Vector<IrregNode>& a_irregData,
            const Box&               a_validBox,
-           const Box&               a_region,
-           const Real&              a_dx,
-           bool a_hasMoments);
+           const Box&               a_region);
 
     ///
     void
@@ -245,38 +140,6 @@ namespace amrex
                              const void* src);
 
 
-    /// get the moment at  the VoF associated with the  monomial with the input exponents
-    /**
-       Given VoF variables x, y, z,   p = mono(0), q = mono(1), r = mono(2),
-       returns integral_over_VoF(x^p y^q z^r dV) for all p q
-    **/
-    IndMomSpaceDim getVolumeMoments(const VolIndex& a_vof) const;
-
-    /// get the normal the irregular face associated with the  monomial with the input exponents 
-    /**
-       Given VoF variables x, y, z,   p = mono(0), q = mono(1), r = mono(2),
-       returns integral_over_VoF((x^p y^q z^r) dV) for p q r
-    **/
-    IndMomSpaceDim getEBMoments(const VolIndex& a_vof) const;
-
-    /// get the moment at  the face associated with the  monomial with the input exponents
-    /**
-       Given face variables x, y,  p = mono(0), q = mono(1)),
-       returns integral_over_face(x^p y^q dA) for all p q
-    **/
-    IndMomSDMinOne getFaceMoments(const FaceIndex& a_face) const;
-
-    /// I am sick of guessing this name wrong
-    IndMomSDMinOne getAreaMoments(const FaceIndex& a_face) const
-      {
-        return getFaceMoments(a_face);
-      }
-
-    /// 
-    /**
-       gets the partial derivs of the normal component.   
-    **/
-    IndMomSpaceDim getEBNormalPartialDerivs(const VolIndex& a_vof, int normalComponent) const;
 
     ///this includes all metadata
     std::size_t nBytesFull() const;
@@ -332,24 +195,10 @@ namespace amrex
         //m_hasVolumeMask = false;
         m_region = a_region;
       }
-
-    ///is this vof in my irregular (cut cell) data
-    bool irregVoF(const VolIndex& a_vol) const;
-
-    ///is this face in my irregular (cut cell) data
-    bool irregFace(const FaceIndex& a_face) const;
-
 private:
 
 
-    void setVolumeMomentsToZero(const VolIndex& a_vof);
-
-    void setAreaMomentsToZero(const FaceIndex& a_face);
-
     void setCoveredAndRegular();
-
-    void shiftAndIncrement(IndMomSpaceDim& a_output, const IndMomSpaceDim& a_input,const RealVect& a_shiftRV);
-    void shiftAndIncrement(IndMomSDMinOne& a_output, const IndMomSDMinOne& a_input,const RealVect& a_shiftRV, int faceDir);
 
     Box m_region;
 
@@ -364,23 +213,6 @@ private:
     bool m_isDefined;
 
 
-    //this stuff only defined if the geometryservice was able to provide them
-    ///
-    BaseIVFAB<VolData>   m_volMoments;
-
-    ///
-    BaseIFFAB<FaceData>  m_faceMoments[SpaceDim];
-
-    ///
-    IndMomSDMinOne m_regularAreaMoments;
- 
-    ///
-    IndMomSpaceDim m_regularVolumeMoments;
-
-    /// true if this object has higher order moments
-    bool m_hasMoments;
-
-    Real m_dx;
     void operator=(const EBDataImplem& ebiin) = delete;
     EBDataImplem(const EBDataImplem& ebiin) = delete;
 
@@ -564,21 +396,17 @@ private:
     define(const EBGraph&           a_graph,
            const Vector<IrregNode>& a_irregData,
            const Box&               a_validBox,
-           const Box&               a_region,
-           const Real&              a_dx,
-           bool a_hasMoments)
+           const Box&               a_region)
     
       {
-        m_implem->define(a_graph, a_irregData, a_validBox, a_region, a_dx, a_hasMoments);
+        m_implem->define(a_graph, a_irregData, a_validBox, a_region);
       }
 
     //this is the define to use when you are just going to copy the data into it.  region should include ghost cells
     void define(const EBGraph&           a_graph,
-                const Box&               a_region,
-                const Real&              a_dx,
-                bool a_hasMoments) 
+                const Box&               a_region)
       {
-        m_implem->define(a_graph, a_region, a_dx, a_hasMoments);
+        m_implem->define(a_graph, a_region);
       }
 
     ///
@@ -626,34 +454,6 @@ private:
       {
         m_implem = a_ebiin.m_implem;
       }
-
-    /// get the moment at  the face associated with the  monomial with the input exponents
-    /**
-       Given face variables x, y,  p = mono(0), q = mono(1)),
-       returns integral_over_face(x^p y^q dA) for all p q
-    **/
-    IndMomSDMinOne getFaceMoments(const FaceIndex& a_face) const;
-
-    /// get the moment at  the VoF associated with the  monomial with the input exponents
-    /**
-       Given VoF variables x, y, z,   p = mono(0), q = mono(1), r = mono(2),
-       returns integral_over_VoF(x^p y^q z^r dV) for all p q
-    **/
-    IndMomSpaceDim getVolumeMoments(const VolIndex& a_vof) const;
-
-    /// get the normal*moment at  the irregular face associated with the  monomial with the input exponents 
-    /**
-       Given VoF variables x, y, z,   p = mono(0), q = mono(1), r = mono(2),
-       returns integral_over_VoF((x^p y^q z^r) dV) for p q r
-    **/
-    IndMomSpaceDim getEBMoments(const VolIndex& a_vof) const;
-
-    /// get the partial derivatives at  the irregular face associated with the  monomial with the input exponents 
-    /**
-       Given VoF variables x, y, z,   p = mono(0), q = mono(1), r = mono(2),
-       returns partial_(x^p y^q z^r)(n_i)  for p q r
-    **/
-    IndMomSpaceDim getEBNormalPartialDerivs(const VolIndex& a_vof, int normalComponent) const;
 
     ///
     /**
@@ -742,27 +542,6 @@ private:
     friend class EBISLevel;
   };
 
-/*******************************/
-  inline  IndMomSDMinOne EBData::getFaceMoments(const FaceIndex& a_face) const
-  {
-    return m_implem->getFaceMoments(a_face);
-  }
-/*******************************/
-  inline  IndMomSpaceDim EBData::getVolumeMoments(const VolIndex& a_vof) const
-  {
-    return m_implem->getVolumeMoments(a_vof);
-  }
-/*******************************/
-  inline  IndMomSpaceDim EBData::getEBMoments(const VolIndex& a_vof) const
-  {
-    return m_implem->getEBMoments(a_vof);
-  }
-
-/*******************************/
-  inline  IndMomSpaceDim EBData::getEBNormalPartialDerivs(const VolIndex& a_vof, int a_normalComponent) const
-  {
-    return m_implem->getEBNormalPartialDerivs(a_vof, a_normalComponent);
-  }
 /*******************************/
   inline const Real& EBData::volFrac(const VolIndex& a_vof) const
   {
